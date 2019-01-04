@@ -1,0 +1,99 @@
+From fda641070372b4e13f534a6fa7f4273ac9475813 Mon Sep 17 00:00:00 2001
+From: Stefan Weil <sw@weilnetz.de>
+Date: Fri, 26 Oct 2018 15:05:08 +0200
+Subject: [PATCH 3/3] Add missing header guards
+
+This fixes some warnings from LGTM:
+
+    This header file should contain a header guard
+    to prevent multiple inclusion.
+
+Signed-off-by: Stefan Weil <sw@weilnetz.de>
+---
+ imageprocess.h | 5 +++++
+ parse.h        | 5 +++++
+ tools.h        | 4 ++++
+ unpaper.h      | 4 ++++
+ 4 files changed, 18 insertions(+)
+
+diff --git imageprocess.h imageprocess.h
+index 95ff805..c08fa99 100644
+--- imageprocess.h
++++ imageprocess.h
+@@ -17,6 +17,9 @@
+  * along with this program; if not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#ifndef IMAGEPROCESS_H
++#define IMAGEPROCESS_H
++
+ /****************************************************************************
+  * image processing functions                                               *
+  ****************************************************************************/
+@@ -100,3 +103,5 @@ void detectBorder(int border[EDGES_COUNT], int outsideMask[EDGES_COUNT], AVFrame
+ void borderToMask(int border[EDGES_COUNT], int mask[EDGES_COUNT], AVFrame *image);
+ 
+ void applyBorder(int border[EDGES_COUNT], AVFrame *image);
++
++#endif /* IMAGEPROCESS_H */
+diff --git parse.h parse.h
+index 671b4f8..3d04cd0 100644
+--- parse.h
++++ parse.h
+@@ -17,6 +17,9 @@
+  * along with this program; if not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#ifndef PARSE_H
++#define PARSE_H
++
+ /* --- tool functions for parameter parsing and verbose output ------------ */
+ 
+ 
+@@ -58,3 +61,5 @@ static inline bool isExcluded(int index, struct MultiIndex multiIndex, struct Mu
+ }
+ 
+ void printMultiIndex(struct MultiIndex multiIndex);
++
++#endif /* PARSE_H */
+diff --git tools.h tools.h
+index a09f90f..da8082f 100644
+--- tools.h
++++ tools.h
+@@ -17,6 +17,8 @@
+  * along with this program; if not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#ifndef TOOLS_H
++#define TOOLS_H
+ 
+ /* --- tool functions for image handling ---------------------------------- */
+ 
+@@ -52,3 +54,5 @@ int countPixelNeighbors(int x, int y, int intensity, int whiteMin, AVFrame *imag
+ void clearPixelNeighbors(int x, int y, int whiteMin, AVFrame *image);
+ 
+ void floodFill(int x, int y, int color, int maskMin, int maskMax, int intensity, AVFrame *image);
++
++#endif /* TOOLS_H */
+diff --git unpaper.h unpaper.h
+index 5253b78..e18ff86 100644
+--- unpaper.h
++++ unpaper.h
+@@ -19,6 +19,8 @@
+ 
+ /* --- global declarations ------------------------------------------------ */
+ 
++#ifndef UNPAPER_H
++#define UNPAPER_H
+ 
+ #if HAVE_STDBOOL_H
+ # include <stdbool.h>
+@@ -273,3 +275,5 @@ static inline void limit(int* i, int max) {
+ static inline int pixelValue(uint8_t r, uint8_t g, uint8_t b) {
+     return (r)<<16 | (g)<<8 | (b);
+ }
++
++#endif /* UNPAPER_H */
+-- 
+2.20.1
+
